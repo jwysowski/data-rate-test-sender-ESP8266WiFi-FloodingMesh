@@ -30,8 +30,9 @@ void setup() {
 	WiFi.persistent(false);
 
     //message_offset
-    for (int i = 0; i < OFFSET_SIZE; i++)
+    for (int i = 0; i < OFFSET_SIZE; i++) {
         message_offset += String(':');
+    }
 
 	mesh.begin();
 	mesh.activateAP();
@@ -45,7 +46,7 @@ void loop() {
         prev_millis = curr_millis;
         
         sprintf(count, "%03x", message_counter);
-		mesh.broadcast(chip_id + String('\t') + String(message_counter) + message_offset);
+		mesh.broadcast(chip_id + String('\t') + String(count) + message_offset);
         message_counter++;
 		message_counter = message_counter > 1000 ? 0 : message_counter;
 	}
